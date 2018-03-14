@@ -337,3 +337,9 @@ sub find_by_regex {
  * Use lexical variables to make data private to subroutines.
  * In Perl 5.10 or later, use `state` variables for private data.
  * Make generator (“factory”) subroutines that create new subroutines for you.
+ 
+ 
+# Links:
+* O'reilly Perl Best Practices: http://archive.oreilly.com/pub/a/perl/excerpts/perl-best-practices/appendix-b.html#perlbp-APP-B-SECT-11
+* PerlMonks thread on parallel execution of system commmands: http://www.perlmonks.org/?node_id=791996
+* Really excellent summary of Perl regex, file IO & text processing: https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/Perl2_Regexe.html
