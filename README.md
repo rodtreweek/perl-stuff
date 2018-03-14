@@ -34,8 +34,9 @@ Fortunately, there are only four precedence levels. Imagine if there were as man
 
 Parentheses and the other grouping operators have the highest precedence. The below table shows the precedence order of regular-expression operators.
 **Regular Expression Operator Precedence, from Highest to Lowest**
+
 | Precedence | Operators | Description |
-| :---         |     :---:      |          ---: |
+| :---       |     :---: |        ---: |
 | Highest   | () (?:) etc.     | Parentheses and other grouping  |
 |      | ? + * {m,n} +? ++ etc.    | Repetition     |
 |      | ^ $ abc \G \b \B [abc]    | Sequence, literal characters, character classes, assertions |
