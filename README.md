@@ -171,3 +171,169 @@ Be careful when using atoms like `\@` and `\%` in code that you are going to sha
 * Use prototypes to create your own array or hash operators.
 * Use prototypes to create subroutines that take separate arrays as arguments.
 * Avoid overusing prototypes, especially when they would confuse people.
+
+## Create closures to lock in data
+
+In Perl, **closures** are subroutines that refer to lexical variables that have gone out of scope. The data does not disappear, because the subroutines still have references to them. You can use closures to limit data to a named subroutine or new anonymous subroutines. 
+
+### Private data for named subroutines
+
+Sometimes your subroutines need some data that only they can see. As with any data, you want to limit their visibility to the smallest scope that you can compose. You could just put your data directly inside the subroutine:
+
+```
+sub some_sub {
+  my $application_root = '/path/to/my/app';
+  
+  # do stuff with $application_root
+}
+```
+
+If you do that, Perl has to recreate the scalar every time that you call the subroutine. If you don’t need to change the data, that’s a waste. Maybe it doesn’t affect performance that much, but it’s just philosophically ugly and needless. You can define `$application_root` outside of the subroutine, but you still want to limit its scope. You do that by wrapping a block around the definition of `$application_root` and the subroutine. You need to define `$application_root` before you define the subroutine so the subroutine can refer to it, so you need to wrap it in a `BEGIN` block:
+
+```
+BEGIN {
+  my $application_root = '/path/to/my/app';
+  
+  sub some_sub {
+    ...;
+  }
+}
+```
+
+In Perl 5.10 and later, you can get the same thing with a `state` variable. This is such a common pattern that it’s now a feature. The first time you run the subroutine, Perl defines the `state` variable and assigns its value. On subsequent calls, Perl ignores that line and the variable keeps the value it had from the previous run of the subroutine:
+
+```
+use 5.010;
+
+sub some_sub {
+  state $application_root = '/path/to/my/app';
+  
+  # do stuff with $application_root
+}
+```
+The `state` variable is more useful for maintaining a variable’s value between calls to the subroutine:
+
+```
+use 5.010;
+
+sub show_letter {
+  state $letter = 'a';
+  
+  print "Letter is ",  $letter++, "\n";
+}
+
+foreach ( 0 .. 5 ) {
+  show_letter();
+}
+
+The output shows the progression of `$letter`:
+
+```
+Letter is a
+Letter is b
+Letter is c
+Letter is d
+Letter is e
+Letter is f
+```
+
+### Private data for subroutine references
+
+Anonymous closures are almost the same thing as using `state` variables, but they can be much more useful because you can create as many closures as you like and you can set up each subroutine just the way you need it. If you wanted to make an anonymous closure doing the same as the previous example, you do mostly the same thing although it all happens at run time:
+
+```
+my $session = do {
+  my $application_root = '/path/to/my/app';
+  
+  sub {
+    ...;
+  }
+};
+
+More useful, however, is something that creates the closure on demand.  Even though you have an anonymous subroutine, you still did all of the same work you did to set up the named subroutine. That’s not very flexible. Instead, you can use a **factory** that makes subroutines:
+
+```
+my $session = closure_factory('/path/to/my/app');
+
+sub closure_factory {
+  my $application_root = shift;
+  
+  sub {
+    ...;
+  }
+}
+```
+
+You can create as many of these as you like. Consider a set of independent counters that you create from the same factory subroutine (a fancy name for a subroutine that creates other subroutines):
+
+```
+sub make_cycle {
+  my ( $min, $max ) = @_;
+  
+  my @numbers= $min .. $max;
+  my $cursor = 0;
+  
+  sub { $numbers[ $cursor++ % @numbers ] }
+}
+
+my $cycle_5_10 = make_cycle( 5, 9 );
+my $cycle_f_m = make_cycle( 'f', 'm');
+```
+
+When you call one of your closures, it doesn’t affect any of the other closures that you created from the same factory:
+
+```
+foreach ( 0 .. 10 ) {
+  print $cycle_5_10->(), $cycle_f_m->();
+}
+```
+
+The output shows the closures operating independently as they interlace their output:
+```
+5f6g7h8i9j5k6l7m8f9g5h
+```
+
+### Closures can share data
+
+You don’t have to limit your out-of-scope data to a single closure. As long as you create the subroutines while those data are in scope, they will share the references. Consider the `File::Find::Closures` module, which supplies convenience subroutines to work with `File::Find`. The `find` subroutine expects a reference to a subroutine to do its magic:
+
+```
+use File::Find qw(find);
+use File::Find::Closures qw(find_by_regex);
+
+my ( $wanted, $reporter ) = find_by_regex(qr/*.pl/);
+
+find( $wanted, @search_dirs );
+
+my @files = $reporter->();
+```
+
+The `find_by_regex` handles two important details for you, each handled by its own closure. First, it creates the callback function that `find` needs. In the same scope, it defines the `@files` array to store the list of files that it collects. To access that array, it creates a second closure:
+
+```
+# From File::Find::Closures
+sub find_by_regex {
+  require File::Spec::Functions;
+  require Carp;
+  require UNIVERSAL;
+  
+  my $regex = shift;
+  
+  unless ( UNIVERSAL::isa( $regex, ref qr// ) ) {
+    Carp::croak "Argument must be a regular expression";
+  }
+  
+  my @files = ();
+  
+  sub {
+    push @files,
+      File::Spec::Functions::canonpath($File::Find::name)
+      if m/$regex/;
+   }, sub { wantarray ? @files : [@files] }
+ }
+ ```
+ 
+ ### Things to remember
+ * Use lexical variables to make data private to subroutines.
+ * In Perl 5.10 or later, use `state` variables for private data.
+ * Make generator (“factory”) subroutines that create new subroutines for you.
