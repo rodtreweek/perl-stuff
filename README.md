@@ -344,3 +344,4 @@ sub find_by_regex {
 * O'reilly Perl Best Practices: http://archive.oreilly.com/pub/a/perl/excerpts/perl-best-practices/appendix-b.html#perlbp-APP-B-SECT-11
 * PerlMonks thread on parallel execution of system commmands: http://www.perlmonks.org/?node_id=791996
 * Really excellent summary of Perl regex, file IO & text processing: https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/Perl2_Regexe.html
+* Nice blog post featuring some Perl idioms to make life easier: https://www.xaprb.com/blog/2006/10/05/five-great-perl-programming-techniques-to-make-your-life-fun-again/
