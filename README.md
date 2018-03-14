@@ -225,7 +225,7 @@ sub show_letter {
 foreach ( 0 .. 5 ) {
   show_letter();
 }
-
+```
 The output shows the progression of `$letter`:
 
 ```
