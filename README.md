@@ -4,7 +4,7 @@ This is currently where I've decided to dump my notes and example code related t
 
 
 As a start, the following is some useful general info excerpted from <ins>Effective Perl Programming: Ways to Write Better, More Idiomatic Perl</ins>, Second Edition
-by brian d foy; Joseph N. Hall; Joshua A. McAdams
+by Brian D. Foy; Joseph N. Hall; Joshua A. McAdams
 Published by Addison-Wesley Professional, 2010:
 
 ## Regular expressions are made up of atoms and operators. Atoms are generally single-character matches. For example:
