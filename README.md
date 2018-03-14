@@ -1,7 +1,11 @@
 # perl-stuff
-This is currently where I've decided to dump my notes/code related to perl.
+This is currently where I've decided to dump various notes and example code related to perl.
 
-As a start, here's some stuff related to regular expressions in perl:
+
+
+As a start, the following is some useful general info excerpted from <ins>Effective Perl Programming: Ways to Write Better, More Idiomatic Perl</ins>, Second Edition
+by brian d foy; Joseph N. Hall; Joshua A. McAdams
+Published by Addison-Wesley Professional, 2010
 
 Regular expressions are made up of atoms and operators. Atoms are generally single-character matches. For example:
 
@@ -42,3 +46,6 @@ Parentheses and the other grouping operators have the highest precedence. The be
 |      | ^ $ abc \G \b \B [abc]    | Sequence, literal characters, character classes, assertions |
 | Lowest | a\|b  | Alternation  |
 
+## Use hashes to pass named parameters
+
+Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”), there’s a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want.A simple approach to named parameters constructs a hash out of the argument list:
