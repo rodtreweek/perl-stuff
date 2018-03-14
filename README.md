@@ -111,7 +111,7 @@ If you use this method for processing named parameters, you refer to the argumen
 
 ## Use prototypes to get special argument parsing
 
-The below table shows the characers you can use in a prototype.
+The below table shows the characters you can use in a prototype.
 
 | Prototype characters | Meaning |
 | :---                 | :---    |
