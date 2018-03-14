@@ -107,3 +107,16 @@ If you use this method for processing named parameters, you refer to the argumen
 * Set default values for parameters by merging hashes.
 * Choose either positional or named parameters, and stick with your choice.
 
+
+## Use prototypes to get special argument parsing
+
+The below table shows the characers you can use in a prototype.
+
+| Prototype characters | Meaning |
+| :---                 | :---    |
+| \$, \@, \%, \&, \*   | Returns reference to variable name or argument |
+|    $   | Forces scalar context    |
+| @, %   | Gobbles the rest of the arguments; forces list context |
+| & | Coderef; sub keyword optional if first argument |
+| * | Typeglob |
+| ; | Separate mandatory from optional arguments |
