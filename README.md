@@ -120,3 +120,48 @@ The below table shows the characers you can use in a prototype.
 | & | Coderef; sub keyword optional if first argument |
 | * | Typeglob |
 | ; | Separate mandatory from optional arguments |
+
+
+### Multiple array arguments
+
+How about a subroutine that takes two array arguments and “blends” them into a single list? Take one element from the first array, then one from the second, then another from the first, and so on:
+
+```
+sub blend (\@\@) {
+  local ( *a, *b ) = @_; # faster than lots of derefs
+  my $n = $#a > $#b ? $#a : $#b;
+  my @res;
+  for my $i ( 0 .. $n ) {
+    push @res, $a[$i], $b[$i];
+  }
+  
+  # could have written this:
+  # map { $a[$_], $b[$_] } 0..$n;
+  # but for and push end-up being faster
+  @res;
+}
+
+# sample usage
+blend @a, @b;
+blend @{ [ 1 .. 10 ] }, @{ [ 11 .. 20 ] };
+```
+
+Along the same lines, you can write a subroutine that iterates through the elements of a list like `foreach`, but *n* at a time:
+
+```
+# for_n: iterate over a list n elements at a time
+sub for_n (&$@) {
+  my ( $sub, $n, @list ) = @_;
+  my $i;
+  while ( $i < $#list ) {
+    &$sub( @list[ $i .. ( $i + $n -1 ) ] );
+    $i += $n;
+  }
+}
+
+# sample usage
+@a = 1 .. 10;
+for_n { print "$_[0], $_[1]\n" } 2, @a;
+```
+
+Be careful when using atoms like `\@` and `\%` in code that you are going to share with the world, since other programmers may not expect subroutines to take arguments by reference without an explicit backslash. Document such behavior thoroughly. By the way, you don’t need your own `blend` or `for_n`, since `List::MoreUtils`’ `mesh` and `natatime` can do those for you :)
