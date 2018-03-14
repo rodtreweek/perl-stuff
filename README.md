@@ -249,6 +249,7 @@ my $session = do {
     ...;
   }
 };
+```
 
 More useful, however, is something that creates the closure on demand.  Even though you have an anonymous subroutine, you still did all of the same work you did to set up the named subroutine. That’s not very flexible. Instead, you can use a **factory** that makes subroutines:
 
