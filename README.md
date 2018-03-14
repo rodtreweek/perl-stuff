@@ -5,9 +5,9 @@ This is currently where I've decided to dump various notes and example code rela
 
 As a start, the following is some useful general info excerpted from <ins>Effective Perl Programming: Ways to Write Better, More Idiomatic Perl</ins>, Second Edition
 by brian d foy; Joseph N. Hall; Joshua A. McAdams
-Published by Addison-Wesley Professional, 2010
+Published by Addison-Wesley Professional, 2010:
 
-Regular expressions are made up of atoms and operators. Atoms are generally single-character matches. For example:
+## Regular expressions are made up of atoms and operators. Atoms are generally single-character matches. For example:
 
 ```
 a      # matches the letter a
@@ -48,4 +48,56 @@ Parentheses and the other grouping operators have the highest precedence. The be
 
 ## Use hashes to pass named parameters
 
-Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”), there’s a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want.A simple approach to named parameters constructs a hash out of the argument list:
+Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”), there’s a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want. A simple approach to named parameters constructs a hash out of the argument list:
+
+```
+sub uses_named_params {
+  my %param = (
+    foo => 'val1'
+    bar => 'val2',
+  );
+  my %input = @_; # read in args as a hash
+  
+  # combine params read in with defaults
+  @param{ keys %input } = values %input;
+  
+  # now, use $param{foo}, $param{bar}, etc.
+  ...
+}
+```
+
+You would call `uses_named_params` with key-value pairs just as if you were constructing a hash: `uses_named_params( bar => 'myval1', bletch => 'myval2' );` That wasn’t very many lines of code, was it? And they were all fairly simple. This is a natural application for hashes.You may want to allow people to call a subroutine with either positional parameters or named parameters. The simplest thing to do in this case is to prefix parameter names with minus signs. Check the first argument to see if it begins with a minus. If it does, process the arguments as named parameters. Here’s one straightforward approach:
+
+```
+sub uses_minus_params {
+  my %param = ( -foo => 'val1', -bar => 'val2' );
+  my %input;
+  
+  if ( substr( $_[0], 0, 1 ) eq '-' ) {
+    # read in named params as a hash
+    %input = @_;
+  }
+  else {
+    my @name = qw(-foo -bar);
+    # give positional parmas names and save in a hash
+    %input = map { $name[$_], $_[$_] } 0 .. $#_;
+  }
+  
+    # overlay params on defaults
+    @param{ keys %input } = values %input;
+    
+    # use $param{-foo}, $param{-bar}
+}
+```
+
+You can call this subroutine with either named or positional parameters (although it’s better to choose one method and stick with it):
+
+```
+uses_minus_params( -foo => 'myval1', -xtra => 'myval2' );
+uses_minus_params( 'myval1, 'myval2' );
+```
+
+Stay away from single character parameter names --for example, `-e` and `-x`. In addition to being overly terse, those are file test operators.
+
+   
+    
