@@ -79,7 +79,7 @@ sub uses_minus_params {
   }
   else {
     my @name = qw(-foo -bar);
-    # give positional parmas names and save in a hash
+    # give positional params names and save in a hash
     %input = map { $name[$_], $_[$_] } 0 .. $#_;
   }
   
