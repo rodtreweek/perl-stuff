@@ -168,6 +168,6 @@ for_n { print "$_[0], $_[1]\n" } 2, @a;
 Be careful when using atoms like `\@` and `\%` in code that you are going to share with the world, since other programmers may not expect subroutines to take arguments by reference without an explicit backslash. Document such behavior thoroughly. By the way, you don’t need your own `blend` or `for_n`, since `List::MoreUtils`’ `mesh` and `natatime` can do those for you :)
 
 ### Things to remember
-• Use prototypes to create your own array or hash operators.
-• Use prototypes to create subroutines that take separate arrays as arguments.
-• Avoid overusing prototypes, especially when they would confuse people.
+* Use prototypes to create your own array or hash operators.
+* Use prototypes to create subroutines that take separate arrays as arguments.
+* Avoid overusing prototypes, especially when they would confuse people.
