@@ -11,7 +11,7 @@ Published by Addison-Wesley Professional, 2010:
 
 ```
 a      # matches the letter a
-\$     # mathces the character
+\$     # matches the character
 \n     # matches newline
 [a-z]  # matches a lowercase letter
 .      # matches any character except \n
@@ -37,6 +37,7 @@ Atoms are modified or joined together by regular-expression operators. As in ari
 Fortunately, there are only four precedence levels. Imagine if there were as many as there are for arithmetic expressions!
 
 Parentheses and the other grouping operators have the highest precedence. The below table shows the precedence order of regular-expression operators.
+
 **Regular Expression Operator Precedence, from Highest to Lowest**
 
 | Precedence | Operators | Description |
@@ -48,7 +49,7 @@ Parentheses and the other grouping operators have the highest precedence. The be
 
 ## Use hashes to pass named parameters
 
-Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”), there are a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want. A simple approach to named parameters constructs a hash out of the argument list:
+Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”, i.e. not named, typed parameters like in most other languages...), there are a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want. A simple approach to named parameters constructs a hash out of the argument list:
 
 ```
 sub uses_named_params {
