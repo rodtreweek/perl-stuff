@@ -1,5 +1,5 @@
 # perl-stuff
-This is currently where I've decided to dump various notes and example code related to perl.
+This is currently where I've decided to dump miscelaneous notes and example code related to perl.
 
 
 
@@ -48,7 +48,7 @@ Parentheses and the other grouping operators have the highest precedence. The be
 
 ## Use hashes to pass named parameters
 
-Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”), there’s a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want. A simple approach to named parameters constructs a hash out of the argument list:
+Although Perl provides no method of automatically naming parameters in the function to which you pass them (in other words, no “formal parameters”), there are a variety of ways that you can call functions with an argument list that provides both names and values. All of these mechanisms require that the function you call do some extra work while processing the argument list. In other words, this feature isn’t built into Perl either, but it’s a blessing in disguise. Different implementations of named parameters are appropriate at different times. Perl makes it easy to write and use almost any implementation you want. A simple approach to named parameters constructs a hash out of the argument list:
 
 ```
 sub uses_named_params {
@@ -99,5 +99,11 @@ uses_minus_params( 'myval1, 'myval2' );
 
 Stay away from single character parameter names --for example, `-e` and `-x`. In addition to being overly terse, those are file test operators.
 
+If you use this method for processing named parameters, you refer to the arguments inside your subroutine by using a hash whose keys are prefixed with minus signs (e.g., `$param{-foo}`, `$param{-bar}`). Using identifiers preceded by minus signs as arguments or keys may look a little funny to you at first (“Is that really Perl?”), but Perl actually treats barewords preceded by minus signs as though they were strings beginning with minus signs. This is generally convenient, but this approach does have a couple of drawbacks. First, although an identifier with a leading minus sign gets a little special treatment from Perl, the identifier isn’t forcibly treated as a string, as it would be to the left of `=>` or alone inside braces. Thus, you have to quote a parameter like `-print`, lest it turn into `-1` (while also printing the value of `$_`). Second, if you want to use the positional argument style and need to pass a negative first argument, you have to supply it as a string with leading whitespace or do something else equally ungainly.
    
     
+### Things to remember
+* Use hashes to name subroutine arguments.
+* Set default values for parameters by merging hashes.
+* Choose either positional or named parameters, and stick with your choice.
+
