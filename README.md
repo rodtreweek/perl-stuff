@@ -1,5 +1,5 @@
 # perl-stuff
-This is currently where I've decided to dump miscelaneous notes and example code related to perl.
+This is currently where I've decided to dump my notes and example code related to perl.
 
 
 
