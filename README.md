@@ -346,3 +346,4 @@ sub find_by_regex {
 * Really excellent summary of Perl regex, file IO & text processing: https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/Perl2_Regexe.html
 * Nice blog post featuring some Perl idioms to make life easier: https://www.xaprb.com/blog/2006/10/05/five-great-perl-programming-techniques-to-make-your-life-fun-again/
 * Great site with some very straightforward and uncomplicated discussion on a number of topics related not only to Perl but programming in general: https://www.caveofprogramming.com/perl-tutorial/perl-stdin-reading-user-input-in-perl.html
+* Perl and Docker: https://robn.io/docker-perl/
