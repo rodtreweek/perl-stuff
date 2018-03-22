@@ -1,5 +1,5 @@
 # perl-stuff
-This is currently where I've decided to dump my notes and example code related to perl - because let's face it, unless you work at Google or <insert hot new tech startup you probably won't be working at a year from now either because a)they weren't actually in the business of writing new libraries for the exotic language they chose to develop on, or b) you've simply moved on to a place that's been around awhile, and by reasonable extension will most certainly have a large amount of legacy (at the very least) perl - where they haven't neededed to write their own dmidecode library.>
+This is currently where I've decided to dump my notes and example code related to perl - because let's face it, unless you work at Google or <insert hot new tech startup you probably won't be working at a year from now either because a)they weren't actually in the business of writing new libraries for the exotic language they chose to develop on, or b) you've simply moved on to a place that's been around awhile, and by reasonable extension will most certainly have a large amount of legacy (at the very least) perl - where they haven't needed to write their own dmidecode library.>
 
 
 
