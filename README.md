@@ -4,9 +4,17 @@ This is currently where I've decided to dump my notes and example code related t
 
 
 
-As a start, the following is some useful general info excerpted from <ins>Effective Perl Programming: Ways to Write Better, More Idiomatic Perl</ins>, Second Edition
+As a start, the following is some useful general info on getting up and running with perl on WSL, along with some useful perl "idioms" excerpted from <ins>Effective Perl Programming: Ways to Write Better, More Idiomatic Perl</ins>, Second Edition
 by Brian D. Foy; Joseph N. Hall; Joshua A. McAdams
 Published by Addison-Wesley Professional, 2010; obtained from https://www.safaribooksonline.com and reproduced in accordance with their [Terms of Service](https://www.safaribooksonline.com/membership-agreement/).
+
+ ## Installing perl and modules on WSL
+ 
+1. First, run `sudo -E apt-get update && sudo -E apt-get install liblocal-lib-perl cpanminus build-essential`
+2. Next, edit `/usr/lib/x86_64-linux-gnu/perl/5.22/Config.pm`
+(around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. `dont_use_nlink => 1`.
+3. `eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"` - or source your .bashrc/zshrc.
+4. Lastly, do a recursive chown on `~/.cpanm` and `~/perl5` so that these are owned by your user/have the proper write permissions, etc.
 
 ## Regular expressions are made up of atoms and operators. Atoms are generally single-character matches. For example:
 
@@ -340,13 +348,7 @@ sub find_by_regex {
  * In Perl 5.10 or later, use `state` variables for private data.
  * Make generator (“factory”) subroutines that create new subroutines for you.
  
- ## Installing perl and modules on WSL
- 
-1. First, run `sudo -E apt-get update && sudo -E apt-get install liblocal-lib-perl cpanminus build-essential`
-2. Next, edit `/usr/lib/x86_64-linux-gnu/perl/5.22/Config.pm`
-(around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. `dont_use_nlink => 1`.
-3. `eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"` - or source your .bashrc/zshrc.
-4. Do a recursive chown on `~/.cpanm` and `~/perl5` so that these are owned by your user, etc.
+
  
  
 # Links:
