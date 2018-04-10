@@ -344,7 +344,7 @@ sub find_by_regex {
  
 1. First, run sudo -E apt-get install liblocal-lib-perl cpanminus build-essential
 2. Next, edit `/usr/lib/x86_64-linux-gnu/perl/5.22/Config.pm`
-edit /usr/lib/perl/5.18.2/Config.pm (around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. `dont_use_nlink => 1`.
+(around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. `dont_use_nlink => 1`.
 3. `eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"` - or source your .bashrc/zshrc.
  
  
