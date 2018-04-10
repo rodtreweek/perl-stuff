@@ -12,7 +12,7 @@ Published by Addison-Wesley Professional, 2010; obtained from https://www.safari
  
 1. First, run `sudo -E apt-get update && sudo -E apt-get install liblocal-lib-perl cpanminus build-essential`
 2. Next, edit `/usr/lib/x86_64-linux-gnu/perl/5.22/Config.pm`
-(around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. `dont_use_nlink => 1`.
+(around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. it should look like this when you're done: `dont_use_nlink => 1`.
 3. `eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"` - or source your .bashrc/zshrc.
 4. Lastly, do a recursive chown on `~/.cpanm` and `~/perl5` so that these are owned by your user/have the proper write permissions, etc.
 
