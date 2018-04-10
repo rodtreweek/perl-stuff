@@ -340,6 +340,13 @@ sub find_by_regex {
  * In Perl 5.10 or later, use `state` variables for private data.
  * Make generator (“factory”) subroutines that create new subroutines for you.
  
+ ## Installing perl and modules on WSL
+ 
+1. First, run sudo -E apt-get install liblocal-lib-perl cpanminus build-essential
+2. Next, edit `/usr/lib/x86_64-linux-gnu/perl/5.22/Config.pm`
+edit /usr/lib/perl/5.18.2/Config.pm (around line 93) and change the `dont_use_nlink` value to `1` instead of `undef`, i.e. `dont_use_nlink => 1`.
+3. `eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"` - or source your .bashrc/zshrc.
+ 
  
 # Links:
 * O'reilly Perl Best Practices: http://archive.oreilly.com/pub/a/perl/excerpts/perl-best-practices/appendix-b.html#perlbp-APP-B-SECT-11
@@ -348,3 +355,4 @@ sub find_by_regex {
 * Nice blog post featuring some Perl idioms to make life easier: https://www.xaprb.com/blog/2006/10/05/five-great-perl-programming-techniques-to-make-your-life-fun-again/
 * Great site with some very straightforward and uncomplicated discussion on a number of topics related not only to Perl but programming in general: https://www.caveofprogramming.com/perl-tutorial/perl-stdin-reading-user-input-in-perl.html
 * Perl and Docker: https://robn.io/docker-perl/
+* Amazing perl course offered by Jen Golbeck of University of Maryland here: http://www.cs.umd.edu/~golbeck/INFM743/
