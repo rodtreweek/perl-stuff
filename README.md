@@ -350,6 +350,10 @@ sub find_by_regex {
  
  ## Using the Perl debugger
  You can use the Perl debugger with any script simply by passing `-d` to it.
+ 
+ Type `s` to continue to next line.
+ Type `n` to continue to next subroutine.
+ Type `r` to shortcut to return value.
 
  
  
