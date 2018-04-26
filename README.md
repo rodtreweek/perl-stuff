@@ -349,7 +349,7 @@ sub find_by_regex {
  * Make generator (“factory”) subroutines that create new subroutines for you.
  
  ## Using the Perl debugger
- 
+ You can use the Perl debugger with any script simply by passing `-d` to it.
 
  
  
