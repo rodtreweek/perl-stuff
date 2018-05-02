@@ -358,6 +358,7 @@ sub find_by_regex {
  
  
 # Links:
+* Decent (and fairly comprehensive) regex checking tool including PCRE and javascript: https://regex101.com/
 * Great blog on using the Perl debugger: http://www.devshed.com/c/a/Perl/Using-The-Perl-Debugger/
 * O'reilly Perl Best Practices: http://archive.oreilly.com/pub/a/perl/excerpts/perl-best-practices/appendix-b.html#perlbp-APP-B-SECT-11
 * PerlMonks thread on parallel execution of system commmands: http://www.perlmonks.org/?node_id=791996
